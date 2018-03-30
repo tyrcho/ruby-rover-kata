@@ -10,16 +10,22 @@ class Rover
     return self if commands.empty?
     command = commands[0]
     tail = commands[1..-1]
-    Rover.new(x: x + (dx command)).execute(tail)
+    Rover
+        .new(x: x + (dx command),
+             orientation: orientation)
+        .execute(tail)
   end
 
   private
 
   def dx(command)
     return 0 if orientation == :north
-    if command == 'B'
+
+    if (command == 'B' && orientation == :east) ||
+        (command == 'F' && orientation == :west)
       -1
-    elsif command == 'F'
+    elsif (command == 'F' && orientation == :east) ||
+        (command == 'B' && orientation == :west)
       1
     else
       throw ''
