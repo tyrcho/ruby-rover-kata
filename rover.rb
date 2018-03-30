@@ -11,21 +11,24 @@ class Rover
     return self if commands.empty?
     command = commands[0]
     tail = commands[1..-1]
-    Rover
-        .new(x: x + (dx command),
-             y: y + (dy command),
-             orientation: orientation)
-        .execute(tail)
+    execute_single(command).execute(tail)
   end
 
   private
 
+  def execute_single(command)
+    Rover
+        .new(x: x + (dx command),
+             y: y + (dy command),
+             orientation: orientation)
+  end
+
   def dx(command)
     return 0 if orientation == :north || orientation == :south
 
-    if goes_west?(command)
+    if goes_west? command
       -1
-    elsif goes_east?(command)
+    elsif goes_east? command
       1
     else
       throw ''
@@ -35,9 +38,9 @@ class Rover
   def dy(command)
     return 0 if orientation == :west || orientation == :east
 
-    if goes_south?(command)
+    if goes_south? command
       -1
-    elsif goes_north?(command)
+    elsif goes_north? command
       1
     else
       throw ''
