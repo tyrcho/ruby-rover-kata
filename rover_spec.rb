@@ -61,5 +61,16 @@ describe 'Rover' do
     expect(rover.x).to be 2
   end
 
+  it 'does move forward facing N' do
+    rover = Rover.new(orientation: :north).execute 'F'
+    expect(rover.y).to be 1
+  end
+
+  it 'does move backwards facing N' do
+    rover = Rover.new(orientation: :north).execute 'BB'
+    expect(rover.y).to be -2
+  end
+
+
 end
 

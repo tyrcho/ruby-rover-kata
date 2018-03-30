@@ -1,8 +1,9 @@
 class Rover
-  attr_reader :x, :orientation
+  attr_reader :x, :y, :orientation
 
-  def initialize(x: 0, orientation: :east)
+  def initialize(x: 0, y: 0, orientation: :east)
     @x = x
+    @y = y
     @orientation = orientation
   end
 
@@ -12,6 +13,7 @@ class Rover
     tail = commands[1..-1]
     Rover
         .new(x: x + (dx command),
+             y: y + (dy command),
              orientation: orientation)
         .execute(tail)
   end
@@ -28,6 +30,28 @@ class Rover
     else
       throw ''
     end
+  end
+
+  def dy(command)
+    return 0 if orientation != :north
+
+    if goes_south?(command)
+      -1
+    elsif goes_north?(command)
+      1
+    else
+      throw ''
+    end
+  end
+
+  def goes_north?(command)
+    (command == 'F' && orientation == :north) ||
+        (command == 'B' && orientation == :south)
+  end
+
+  def goes_south?(command)
+    (command == 'B' && orientation == :north) ||
+        (command == 'N' && orientation == :south)
   end
 
   def goes_east?(command)
