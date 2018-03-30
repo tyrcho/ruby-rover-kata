@@ -21,14 +21,22 @@ class Rover
   def dx(command)
     return 0 if orientation == :north
 
-    if (command == 'B' && orientation == :east) ||
-        (command == 'F' && orientation == :west)
+    if goes_west?(command)
       -1
-    elsif (command == 'F' && orientation == :east) ||
-        (command == 'B' && orientation == :west)
+    elsif goes_east?(command)
       1
     else
       throw ''
     end
+  end
+
+  def goes_east?(command)
+    (command == 'F' && orientation == :east) ||
+        (command == 'B' && orientation == :west)
+  end
+
+  def goes_west?(command)
+    (command == 'B' && orientation == :east) ||
+        (command == 'F' && orientation == :west)
   end
 end
