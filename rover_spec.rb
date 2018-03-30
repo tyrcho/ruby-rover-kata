@@ -71,6 +71,11 @@ describe 'Rover' do
     expect(rover.y).to be -2
   end
 
+  it 'does move facing S' do
+    rover = Rover.new(orientation: :south).execute 'BBFFF'
+    expect(rover.y).to be -1
+  end
+
 
 end
 

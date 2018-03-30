@@ -21,7 +21,7 @@ class Rover
   private
 
   def dx(command)
-    return 0 if orientation == :north
+    return 0 if orientation == :north || orientation == :south
 
     if goes_west?(command)
       -1
@@ -33,7 +33,7 @@ class Rover
   end
 
   def dy(command)
-    return 0 if orientation != :north
+    return 0 if orientation == :west || orientation == :east
 
     if goes_south?(command)
       -1
@@ -51,7 +51,7 @@ class Rover
 
   def goes_south?(command)
     (command == 'B' && orientation == :north) ||
-        (command == 'N' && orientation == :south)
+        (command == 'F' && orientation == :south)
   end
 
   def goes_east?(command)
