@@ -26,16 +26,17 @@ class Rover
 
 
   def execute_single(command)
-    if command == 'F'
-      move 1
-    elsif command == 'B'
-      move -1
-    elsif command == 'L'
-      turn 1
-    elsif command == 'R'
-      turn -1
-    else
-      throw ''
+    case command
+      when 'F'
+        move 1
+      when 'B'
+        move -1
+      when 'L'
+        turn 1
+      when 'R'
+        turn -1
+      else
+        throw ''
     end
   end
 
@@ -57,12 +58,14 @@ class Rover
   end
 
   def delta(positive, negative)
-    if orientation == positive
-      1
-    elsif orientation == negative
-      -1
-    else
-      0
+    case orientation
+      when positive
+        1
+      when negative
+        -1
+      else
+        0
     end
   end
+
 end
