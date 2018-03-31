@@ -1,6 +1,8 @@
 class Rover
   attr_reader :x, :y, :orientation
 
+  @@clockwise = [:east, :north, :west, :south]
+
   def initialize(x: 0, y: 0, orientation: :east)
     @x = x
     @y = y
@@ -22,6 +24,7 @@ class Rover
 
   private
 
+
   def execute_single(command)
     if command == 'F'
       forward
@@ -37,19 +40,11 @@ class Rover
   end
 
   def left
-    turned = if orientation == :north
-               :west
-             elsif orientation == :west
-               :south
-             elsif orientation == :south
-               :east
-             elsif orientation == :east
-               :north
-             end
+    turned_index = @@clockwise.index(orientation) + 1
     Rover
         .new(x: x,
              y: y,
-             orientation: turned)
+             orientation: @@clockwise[turned_index % 4])
   end
 
   def right
