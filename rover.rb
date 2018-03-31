@@ -1,13 +1,12 @@
+require './position'
+
 # noinspection RubyClassVariableUsageInspection
 
 class Rover
-  attr_reader :x, :y, :orientation
+  attr_reader :orientation, :position
 
-  def initialize(x: 0, y: 0, orientation: :east)
-    # noinspection RubyInstanceVariableNamingConvention
-    @x = x
-    # noinspection RubyInstanceVariableNamingConvention
-    @y = y
+  def initialize( position: Position.new, orientation: :east)
+    @position = position
     @orientation = orientation
   end
 
@@ -20,8 +19,7 @@ class Rover
   end
 
   def ==(that)
-    self.x == that.x &&
-        self.y == that.y &&
+    self.position == that.position &&
         self.orientation == that.orientation
   end
 
@@ -49,16 +47,16 @@ class Rover
   def turn(rotation)
     turned_index = @@clockwise.index(orientation) + rotation
     Rover.new(
-        x: x,
-        y: y,
+        position: position,
         orientation: @@clockwise[turned_index % @@clockwise.length])
   end
 
 
   def move(direction)
     Rover.new(
-        x: x + direction * (delta :east, :west),
-        y: y + direction * (delta :north, :south),
+        position: position + Position.new(
+            x: direction * (delta :east, :west),
+            y: direction * (delta :north, :south)),
         orientation: orientation)
   end
 
