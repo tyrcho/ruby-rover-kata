@@ -1,10 +1,10 @@
 class Rover
   attr_reader :x, :y, :orientation
 
-  @@clockwise = [:east, :north, :west, :south]
-
   def initialize(x: 0, y: 0, orientation: :east)
+    # noinspection RubyInstanceVariableNamingConvention
     @x = x
+    # noinspection RubyInstanceVariableNamingConvention
     @y = y
     @orientation = orientation
   end
@@ -24,6 +24,8 @@ class Rover
 
   private
 
+  # noinspection RubyClassVariableUsageInspection
+  @@clockwise = [:east, :north, :west, :south]
 
   def execute_single(command)
     case command
@@ -43,18 +45,18 @@ class Rover
 
   def turn(rotation)
     turned_index = @@clockwise.index(orientation) + rotation
-    Rover
-        .new(x: x,
-             y: y,
-             orientation: @@clockwise[turned_index % 4])
+    Rover.new(
+        x: x,
+        y: y,
+        orientation: @@clockwise[turned_index % @@clockwise.length])
   end
 
 
-  def move(fwd)
-    Rover
-        .new(x: x + fwd * (delta :east, :west),
-             y: y + fwd * (delta :north, :south),
-             orientation: orientation)
+  def move(direction)
+    Rover.new(
+        x: x + direction * (delta :east, :west),
+        y: y + direction * (delta :north, :south),
+        orientation: orientation)
   end
 
   def delta(positive, negative)
