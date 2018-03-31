@@ -27,56 +27,34 @@ class Rover
 
   def execute_single(command)
     if command == 'F'
-      forward
+      move 1
     elsif command == 'B'
-      backwards
+      move -1
     elsif command == 'L'
-      left
+      turn 1
     elsif command == 'R'
-      right
+      turn -1
     else
       throw ''
     end
   end
 
-  def left
-    turned_index = @@clockwise.index(orientation) + 1
+
+  def turn(rotation)
+    turned_index = @@clockwise.index(orientation) + rotation
     Rover
         .new(x: x,
              y: y,
              orientation: @@clockwise[turned_index % 4])
   end
 
-  def right
-    turned = if orientation == :south
-               :west
-             elsif orientation == :west
-               :north
-             elsif orientation == :north
-               :east
-             elsif orientation == :east
-               :south
-             end
-    Rover
-        .new(x: x,
-             y: y,
-             orientation: turned)
-  end
 
-  def forward
+  def move(fwd)
     Rover
-        .new(x: x + (delta :east, :west),
-             y: y + (delta :north, :south),
+        .new(x: x + fwd * (delta :east, :west),
+             y: y + fwd * (delta :north, :south),
              orientation: orientation)
   end
-
-  def backwards
-    Rover
-        .new(x: x - (delta :east, :west),
-             y: y - (delta :north, :south),
-             orientation: orientation)
-  end
-
 
   def delta(positive, negative)
     if orientation == positive
