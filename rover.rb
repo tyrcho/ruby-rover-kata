@@ -1,3 +1,5 @@
+# noinspection RubyClassVariableUsageInspection
+
 class Rover
   attr_reader :x, :y, :orientation
 
@@ -10,10 +12,11 @@ class Rover
   end
 
   def execute(commands)
-    return self if commands.empty?
-    command = commands[0]
-    tail = commands[1..-1]
-    execute_single(command).execute(tail)
+    rover = self
+    commands.split('').each do |command|
+      rover = rover.execute_single command
+    end
+    rover
   end
 
   def ==(that)
@@ -21,11 +24,6 @@ class Rover
         self.y == that.y &&
         self.orientation == that.orientation
   end
-
-  private
-
-  # noinspection RubyClassVariableUsageInspection
-  @@clockwise = [:east, :north, :west, :south]
 
   def execute_single(command)
     case command
@@ -41,6 +39,11 @@ class Rover
         throw ''
     end
   end
+
+
+  private
+
+  @@clockwise = [:east, :north, :west, :south]
 
 
   def turn(rotation)
