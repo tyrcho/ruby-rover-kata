@@ -17,53 +17,37 @@ class Rover
   private
 
   def execute_single(command)
+    if command == 'F'
+      forward
+    elsif command == 'B'
+      backwards
+    else
+      throw ''
+    end
+  end
+
+  def forward
     Rover
-        .new(x: x + (dx command),
-             y: y + (dy command),
+        .new(x: x + (delta :east, :west),
+             y: y + (delta :north, :south),
              orientation: orientation)
   end
 
-  def dx(command)
-    return 0 if orientation == :north || orientation == :south
+  def backwards
+    Rover
+        .new(x: x - (delta :east, :west),
+             y: y - (delta :north, :south),
+             orientation: orientation)
+  end
 
-    if goes_west? command
-      -1
-    elsif goes_east? command
+
+  def delta(positive, negative)
+    if orientation == positive
       1
-    else
-      throw ''
-    end
-  end
-
-  def dy(command)
-    return 0 if orientation == :west || orientation == :east
-
-    if goes_south? command
+    elsif orientation == negative
       -1
-    elsif goes_north? command
-      1
     else
-      throw ''
+      0
     end
-  end
-
-  def goes_north?(command)
-    (command == 'F' && orientation == :north) ||
-        (command == 'B' && orientation == :south)
-  end
-
-  def goes_south?(command)
-    (command == 'B' && orientation == :north) ||
-        (command == 'F' && orientation == :south)
-  end
-
-  def goes_east?(command)
-    (command == 'F' && orientation == :east) ||
-        (command == 'B' && orientation == :west)
-  end
-
-  def goes_west?(command)
-    (command == 'B' && orientation == :east) ||
-        (command == 'F' && orientation == :west)
   end
 end
