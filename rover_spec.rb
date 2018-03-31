@@ -1,5 +1,6 @@
 require 'rspec'
 require './rover'
+require './planet'
 
 describe 'Rover' do
   it 'is initially at x=0' do
@@ -99,6 +100,22 @@ describe 'Rover' do
   it 'turns R from S' do
     rover = Rover.new(orientation: :south).execute 'R'
     expect(rover).to eq Rover.new(orientation: :west)
+  end
+
+  planet = Planet.new(
+      north_east: Position.new(x: 4, y: 3),
+      south_west: Position.new(x: -2, y: -1))
+
+  it 'wraps around Planet width to the E' do
+    rover = Rover.new(planet: planet)
+                .execute 'FFFFF'
+    expect(rover.position.x).to be -2
+  end
+
+  it 'wraps around Planet width to the W' do
+    rover = Rover.new(planet: planet)
+                .execute 'BBBB'
+    expect(rover.position.x).to be 3
   end
 
 

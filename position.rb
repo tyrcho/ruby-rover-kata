@@ -17,4 +17,9 @@ class Position
     self.x == that.x &&
         self.y == that.y
   end
+
+  def to_s
+    "#{x}, #{y}"
+  end
+
 end

@@ -1,13 +1,19 @@
 require './position'
+require './planet'
 
 # noinspection RubyClassVariableUsageInspection
 
 class Rover
-  attr_reader :orientation, :position
+  attr_reader :orientation, :position, :planet
 
-  def initialize(position: Position.new, orientation: :east)
+  def initialize(
+      position: Position.new,
+      orientation: :east,
+      planet: Planet.new)
+
     @position = position
     @orientation = orientation
+    @planet = planet
   end
 
   def execute(commands)
@@ -48,7 +54,8 @@ class Rover
     turned_index = @@clockwise.index(orientation) + rotation
     Rover.new(
         position: position,
-        orientation: @@clockwise[turned_index % @@clockwise.length])
+        orientation: @@clockwise[turned_index % @@clockwise.length],
+        planet: planet)
   end
 
 
@@ -57,8 +64,9 @@ class Rover
     dy = direction * (sign :north, :south)
     delta = Position.new(x: dx, y: dy)
     Rover.new(
-        position: position + delta,
-        orientation: orientation)
+        position: planet.wrap(position + delta),
+        orientation: orientation,
+        planet: planet)
   end
 
   def sign(positive, negative)
