@@ -20,7 +20,13 @@ class Rover
   def execute(commands)
     rover = self
     commands.split('').each do |command|
-      rover = rover.execute_single command
+      next_rover = rover.execute_single command
+      if planet.accessible? next_rover.position
+        rover = next_rover
+      else
+        puts "found an obstacle #{next_rover.position}"
+        return rover
+      end
     end
     rover
   end

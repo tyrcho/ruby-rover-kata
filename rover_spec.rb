@@ -118,17 +118,26 @@ describe 'Rover' do
     expect(rover.position.x).to be 3
   end
 
- it 'wraps around Planet height to the N' do
+  it 'wraps around Planet height to the N' do
     rover = Rover.new(planet: planet)
                 .execute 'LFFFF'
     expect(rover.position.y).to be -1
   end
 
 
- it 'wraps around Planet height to the S' do
+  it 'wraps around Planet height to the S' do
     rover = Rover.new(planet: planet)
                 .execute 'RFFFF'
     expect(rover.position.y).to be 1
+  end
+
+  it 'stops moving before hitting an obstacle' do
+    planet = Planet.new(obstacles: [Position.new(x: 1, y: 1)])
+    rover = Rover.new(planet: planet)
+                .execute 'FLFFBBB'
+    expect(rover).to eq Rover.new(
+        position: Position.new(x: 1, y: 0),
+        orientation: :north)
   end
 
 
