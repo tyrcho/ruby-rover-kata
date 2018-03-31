@@ -5,7 +5,7 @@ require './position'
 class Rover
   attr_reader :orientation, :position
 
-  def initialize( position: Position.new, orientation: :east)
+  def initialize(position: Position.new, orientation: :east)
     @position = position
     @orientation = orientation
   end
@@ -53,14 +53,15 @@ class Rover
 
 
   def move(direction)
+    dx = direction * (sign :east, :west)
+    dy = direction * (sign :north, :south)
+    delta = Position.new(x: dx, y: dy)
     Rover.new(
-        position: position + Position.new(
-            x: direction * (delta :east, :west),
-            y: direction * (delta :north, :south)),
+        position: position + delta,
         orientation: orientation)
   end
 
-  def delta(positive, negative)
+  def sign(positive, negative)
     case orientation
       when positive
         1
