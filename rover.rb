@@ -14,6 +14,7 @@ class Rover
     @position = position
     @orientation = orientation
     @planet = planet
+    freeze
   end
 
   def execute(commands)

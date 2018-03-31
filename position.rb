@@ -6,6 +6,7 @@ class Position
     @x = x
     # noinspection RubyInstanceVariableNamingConvention
     @y = y
+    freeze
   end
 
   def +(that)

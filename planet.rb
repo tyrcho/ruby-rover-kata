@@ -8,6 +8,7 @@ class Planet
 
     @north_east = north_east
     @south_west = south_west
+    freeze
   end
 
   def wrap(position)
