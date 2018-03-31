@@ -14,6 +14,12 @@ class Rover
     execute_single(command).execute(tail)
   end
 
+  def ==(that)
+    self.x == that.x &&
+        self.y == that.y &&
+        self.orientation == that.orientation
+  end
+
   private
 
   def execute_single(command)
@@ -21,6 +27,11 @@ class Rover
       forward
     elsif command == 'B'
       backwards
+    elsif command == 'L'
+      Rover
+          .new(x: x ,
+               y: y ,
+               orientation: :north)
     else
       throw ''
     end

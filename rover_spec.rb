@@ -76,6 +76,11 @@ describe 'Rover' do
     expect(rover.y).to be -1
   end
 
+  it 'turns L' do
+    rover = Rover.new.execute 'LF'
+    expect(rover).to eq Rover.new(orientation: :north, x: 0, y: 1)
+  end
+
 
 end
 
