@@ -15,6 +15,10 @@ class Planet
       Position.new(x: south_west.x, y: position.y)
     elsif position.x < south_west.x
       Position.new(x: north_east.x, y: position.y)
+    elsif position.y < south_west.y
+      Position.new(x: position.x, y: north_east.y)
+    elsif position.y > north_east.y
+      Position.new(x: position.x, y: south_west.y)
     else
       position
     end
