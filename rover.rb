@@ -29,6 +29,8 @@ class Rover
       backwards
     elsif command == 'L'
       left
+    elsif command == 'R'
+      right
     else
       throw ''
     end
@@ -43,6 +45,22 @@ class Rover
                :east
              elsif orientation == :east
                :north
+             end
+    Rover
+        .new(x: x,
+             y: y,
+             orientation: turned)
+  end
+
+  def right
+    turned = if orientation == :south
+               :west
+             elsif orientation == :west
+               :north
+             elsif orientation == :north
+               :east
+             elsif orientation == :east
+               :south
              end
     Rover
         .new(x: x,
