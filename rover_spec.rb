@@ -81,6 +81,16 @@ describe 'Rover' do
     expect(rover).to eq Rover.new(orientation: :north, x: 0, y: 1)
   end
 
+  it 'turns L after moving' do
+    rover = Rover.new.execute 'FL'
+    expect(rover).to eq Rover.new(orientation: :north, x: 1, y: 0)
+  end
+
+  it 'turns L from S' do
+    rover = Rover.new(orientation: :south).execute 'L'
+    expect(rover).to eq Rover.new(orientation: :east)
+  end
+
 
 end
 
