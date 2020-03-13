@@ -1,5 +1,5 @@
-require './position'
-require './planet'
+require 'position'
+require 'planet'
 
 # noinspection RubyClassVariableUsageInspection
 

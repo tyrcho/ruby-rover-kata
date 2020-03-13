@@ -1,6 +1,6 @@
 require 'rspec'
-require './rover'
-require './planet'
+require 'rover'
+require 'planet'
 
 describe 'Rover' do
   it 'is initially at x=0' do

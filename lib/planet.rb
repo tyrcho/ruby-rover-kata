@@ -1,4 +1,4 @@
-require './position'
+require 'position'
 
 class Planet
   attr_reader :north_east, :south_west, :obstacles
